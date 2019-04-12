@@ -95,8 +95,7 @@ class S3Storage(ObjectStoreStorage):
         print("********")
         print(bucket_name)
         print(settings)
-        print(str(config))
-        print(repr(config))
+        print(config_settings)
         print(s3_settings)
 
         gotem = boto3.Session()
