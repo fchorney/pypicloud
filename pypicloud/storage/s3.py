@@ -107,6 +107,7 @@ class S3Storage(ObjectStoreStorage):
         getem = boto3.resource("s3")
         print(getem)
         bucket = getem.Bucket(bucket_name)
+        head = None
         try:
             head = getem.meta.client.head_bucket(Bucket=bucket_name)
         except Exception as e:
