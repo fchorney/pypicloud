@@ -95,7 +95,8 @@ class S3Storage(ObjectStoreStorage):
         print("********")
         print(bucket_name)
         print(settings)
-        print(config)
+        print(str(config))
+        print(repr(config))
         print(s3_settings)
 
         gotem = boto3.Session()
@@ -106,6 +107,26 @@ class S3Storage(ObjectStoreStorage):
 
         getem = boto3.resource("s3")
         print(getem)
+        bucket = getem.Bucket(bucket_name)
+        try:
+            head = getem.meta.client.head_bucket(Bucket=bucket_name)
+        except Exception as e:
+            print(e)
+
+        print(bucket)
+        print(head)
+
+        getem = boto3.resource("s3", config=config)
+        print(getem)
+        bucket = getem.Bucket(bucket_name)
+        try:
+            head = getem.meta.client.head_bucket(Bucket=bucket_name)
+        except Exception as e:
+            print(e)
+
+        print(bucket)
+        print(head)
+
 
         print("********")
 
