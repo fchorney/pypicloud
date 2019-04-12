@@ -102,7 +102,7 @@ class S3Storage(ObjectStoreStorage):
             session = boto3.Session()
             credentials = session.get_credentials()
             creds = credentials.get_frozen_credentials()
-            s3_settings["aws_access_key"] = creds.access_key
+            s3_settings["aws_access_key_id"] = creds.access_key
             s3_settings["aws_secret_access_key"] = creds.secret_key
             s3_settings["aws_session_token"] = creds.token
 
@@ -131,7 +131,7 @@ class S3Storage(ObjectStoreStorage):
         print(bucket)
         print(head)
 
-        getem = boto3.resource("s3", config=config)
+        getem = boto3.resource("s3", config=config, **s3_settings)
         print(getem)
         bucket = getem.Bucket(bucket_name)
         try:
@@ -141,7 +141,6 @@ class S3Storage(ObjectStoreStorage):
 
         print(bucket)
         print(head)
-
 
         print("********")
 
