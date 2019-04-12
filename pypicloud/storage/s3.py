@@ -79,21 +79,37 @@ class S3Storage(ObjectStoreStorage):
             else:
                 return str(val)
 
+        s3_settings = get_settings(
+            settings,
+            "storage.",
+            region_name=str,
+            api_version=str,
+            use_ssl=asbool,
+            verify=verify_value,
+            endpoint_url=str,
+            aws_access_key_id=str,
+            aws_secret_access_key=str,
+            aws_session_token=str,
+        )
+
+        print("********")
+        print(s3_settings)
+
+        gotem = boto3.Session()
+        print(gotem)
+        sts = gotem.client("sts")
+        cid = sts.get_caller_identity()
+        print(cid)
+
+        getem = boto3.resource("s3")
+        print(getem)
+
+        print("********")
+
         s3conn = boto3.resource(
             "s3",
             config=config,
-            **get_settings(
-                settings,
-                "storage.",
-                region_name=str,
-                api_version=str,
-                use_ssl=asbool,
-                verify=verify_value,
-                endpoint_url=str,
-                aws_access_key_id=str,
-                aws_secret_access_key=str,
-                aws_session_token=str,
-            )
+            **s3_settings
         )
 
         bucket = s3conn.Bucket(bucket_name)
