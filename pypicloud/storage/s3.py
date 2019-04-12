@@ -92,7 +92,8 @@ class S3Storage(ObjectStoreStorage):
             aws_session_token=str,
         )
 
-        # Since boto3 session isnt used, if the credentials aren't supplied in the
+        # Since boto3 session isnt used, if the credentials aren't supplied
+        # in the
         # config files, then lets just grab them from the session here
         if (
             "aws_access_key" not in s3_settings
@@ -107,7 +108,7 @@ class S3Storage(ObjectStoreStorage):
             s3_settings["aws_session_token"] = creds.token
 
         print("********")
-        print("Version 15")
+        print("Version 16")
         print(bucket_name)
         print(settings)
         print(config_settings)
@@ -141,6 +142,9 @@ class S3Storage(ObjectStoreStorage):
 
         print(bucket)
         print(head)
+
+        import os
+        print(os.environ)
 
         print("********")
 
