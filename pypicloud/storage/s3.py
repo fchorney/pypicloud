@@ -104,7 +104,7 @@ class S3Storage(ObjectStoreStorage):
         cid = sts.get_caller_identity()
         print(cid)
 
-        getem = boto3.resource("s3")
+        getem = gotem.resource("s3")
         print(getem)
         bucket = getem.Bucket(bucket_name)
         head = None
