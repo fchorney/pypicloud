@@ -102,9 +102,9 @@ class S3Storage(ObjectStoreStorage):
             session = boto3.Session()
             credentials = session.get_credentials()
             creds = credentials.get_frozen_credentials()
-            settings["aws_access_key"] = creds.access_key
-            settings["aws_secret_access_key"] = creds.secret_key
-            settings["aws_session_token"] = creds.token
+            s3_settings["aws_access_key"] = creds.access_key
+            s3_settings["aws_secret_access_key"] = creds.secret_key
+            s3_settings["aws_session_token"] = creds.token
 
         print("********")
         print("Version 15")
