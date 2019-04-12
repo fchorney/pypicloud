@@ -144,7 +144,11 @@ class S3Storage(ObjectStoreStorage):
         print(head)
 
         import os
-        print(os.environ)
+        print("Environ: ", os.environ)
+        import sys
+        print("Sys: ", sys.prefix)
+        import pwd
+        print("User: ", pwd.getpwuid(os.getuid()))
 
         print("********")
 
