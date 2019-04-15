@@ -92,6 +92,8 @@ class S3Storage(ObjectStoreStorage):
             aws_session_token=str,
         )
 
+        boto3.set_stream_logger('', logging.DEBUG)
+
         # Since boto3 session isnt used, if the credentials aren't supplied
         # in the
         # config files, then lets just grab them from the session here
