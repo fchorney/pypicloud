@@ -49,14 +49,14 @@ class S3Storage(ObjectStoreStorage):
 
     @classmethod
     def get_bucket(cls, bucket_name, settings):
-        print("******** THIS IS THE PY ********")
+        print("******** THIS IS THE PY 1 ********")
         boto3.set_stream_logger('', logging.DEBUG)
         s3conn = boto3.resource('s3')
         try:
             head = s3conn.meta.client.head_bucket(Bucket='gotem')
         except Exception as e:
             print(e)
-        print("******** THE PY IS DONE ********")
+        print("******** THE PY IS DONE 1 ********")
 
         config_settings = get_settings(
             settings,
@@ -101,11 +101,19 @@ class S3Storage(ObjectStoreStorage):
             aws_session_token=str,
         )
 
+        print("******** THIS IS THE PY 2 ********")
+        boto3.set_stream_logger('', logging.DEBUG)
+        s3conn = boto3.resource('s3')
+        try:
+            head = s3conn.meta.client.head_bucket(Bucket='gotem')
+        except Exception as e:
+            print(e)
+        print("******** THE PY IS DONE 2 ********")
 
         # Since boto3 session isnt used, if the credentials aren't supplied
         # in the
         # config files, then lets just grab them from the session here
-        if (
+        """if (
             "aws_access_key" not in s3_settings
             and "aws_secret_access_key" not in s3_settings
             and "aws_session_token" not in s3_settings
@@ -115,52 +123,16 @@ class S3Storage(ObjectStoreStorage):
             creds = credentials.get_frozen_credentials()
             s3_settings["aws_access_key_id"] = creds.access_key
             s3_settings["aws_secret_access_key"] = creds.secret_key
-            s3_settings["aws_session_token"] = creds.token
+            s3_settings["aws_session_token"] = creds.token"""
 
-        print("********")
-        print("Version 17")
-        print(bucket_name)
-        print(settings)
-        print(config_settings)
-        print(s3_settings)
-
-        gotem = boto3.Session()
-        print(gotem)
-        sts = gotem.client("sts")
-        cid = sts.get_caller_identity()
-        print(cid)
-
-        getem = gotem.resource("s3")
-        print(getem)
-        bucket = getem.Bucket(bucket_name)
-        head = None
+        print("******** THIS IS THE PY 3 ********")
+        boto3.set_stream_logger('', logging.DEBUG)
+        s3conn = boto3.resource('s3', config=config, **s3_settings)
         try:
-            head = getem.meta.client.head_bucket(Bucket=bucket_name)
+            head = s3conn.meta.client.head_bucket(Bucket='gotem')
         except Exception as e:
             print(e)
-
-        print(bucket)
-        print(head)
-
-        getem = boto3.resource("s3", config=config, **s3_settings)
-        print(getem)
-        bucket = getem.Bucket(bucket_name)
-        try:
-            head = getem.meta.client.head_bucket(Bucket=bucket_name)
-        except Exception as e:
-            print(e)
-
-        print(bucket)
-        print(head)
-
-        import os
-        print("Environ: ", os.environ)
-        import sys
-        print("Sys: ", sys.prefix)
-        import pwd
-        print("User: ", pwd.getpwuid(os.getuid()))
-
-        print("********")
+        print("******** THE PY IS DONE 3 ********")
 
         s3conn = boto3.resource(
             "s3",
