@@ -50,7 +50,7 @@ class S3Storage(ObjectStoreStorage):
     @classmethod
     def get_bucket(cls, bucket_name, settings):
         print("******** THIS IS THE PY ********")
-        boto3.set_stream_logger('', logging.debug)
+        boto3.set_stream_logger('', logging.DEBUG)
         s3conn = boto3.resource('s3')
         head = s3conn.meta.client.head_bucket(Bucket='gotem')
         print("******** THE PY IS DONE ********")
