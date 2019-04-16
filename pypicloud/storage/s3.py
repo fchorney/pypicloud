@@ -133,6 +133,15 @@ class S3Storage(ObjectStoreStorage):
         except Exception as e:
             print(e)
         print("******** THE PY IS DONE 3 ********")
+        print("******** THIS IS THE PY 4 ********")
+        boto3.set_stream_logger('', logging.DEBUG)
+        s3conn = boto3.resource('s3', config=config, **s3_settings)
+        try:
+            head = s3conn.meta.client.head_bucket(Bucket=bucket_name)
+        except Exception as e:
+            print(e)
+        print("{%s}" % bucket_name)
+        print("******** THE PY IS DONE 4 ********")
 
         s3conn = boto3.resource(
             "s3",
