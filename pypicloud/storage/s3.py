@@ -49,6 +49,12 @@ class S3Storage(ObjectStoreStorage):
 
     @classmethod
     def get_bucket(cls, bucket_name, settings):
+        print("******** THIS IS THE PY ********")
+        boto3.set_stream_logger('', logging.debug)
+        s3conn = boto3.resource('s3')
+        head = s3conn.meta.client.head_bucket(Bucket='gotem')
+        print("******** THE PY IS DONE ********")
+
         config_settings = get_settings(
             settings,
             "storage.",
@@ -92,7 +98,6 @@ class S3Storage(ObjectStoreStorage):
             aws_session_token=str,
         )
 
-        boto3.set_stream_logger('', logging.DEBUG)
 
         # Since boto3 session isnt used, if the credentials aren't supplied
         # in the
@@ -110,7 +115,7 @@ class S3Storage(ObjectStoreStorage):
             s3_settings["aws_session_token"] = creds.token
 
         print("********")
-        print("Version 16")
+        print("Version 17")
         print(bucket_name)
         print(settings)
         print(config_settings)
