@@ -52,7 +52,10 @@ class S3Storage(ObjectStoreStorage):
         print("******** THIS IS THE PY ********")
         boto3.set_stream_logger('', logging.DEBUG)
         s3conn = boto3.resource('s3')
-        head = s3conn.meta.client.head_bucket(Bucket='gotem')
+        try:
+            head = s3conn.meta.client.head_bucket(Bucket='gotem')
+        except Exception as e:
+            print(e)
         print("******** THE PY IS DONE ********")
 
         config_settings = get_settings(
