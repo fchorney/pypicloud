@@ -50,7 +50,6 @@ class S3Storage(ObjectStoreStorage):
     @classmethod
     def get_bucket(cls, bucket_name, settings):
         print("******** THIS IS THE PY 1 ********")
-        boto3.set_stream_logger('', logging.DEBUG)
         s3conn = boto3.resource('s3')
         try:
             head = s3conn.meta.client.head_bucket(Bucket='gotem')
@@ -102,7 +101,6 @@ class S3Storage(ObjectStoreStorage):
         )
 
         print("******** THIS IS THE PY 2 ********")
-        boto3.set_stream_logger('', logging.DEBUG)
         s3conn = boto3.resource('s3')
         try:
             head = s3conn.meta.client.head_bucket(Bucket='gotem')
@@ -126,7 +124,6 @@ class S3Storage(ObjectStoreStorage):
             s3_settings["aws_session_token"] = creds.token"""
 
         print("******** THIS IS THE PY 3 ********")
-        boto3.set_stream_logger('', logging.DEBUG)
         s3conn = boto3.resource('s3', config=config, **s3_settings)
         try:
             head = s3conn.meta.client.head_bucket(Bucket='gotem')
@@ -134,7 +131,6 @@ class S3Storage(ObjectStoreStorage):
             print(e)
         print("******** THE PY IS DONE 3 ********")
         print("******** THIS IS THE PY 4 ********")
-        boto3.set_stream_logger('', logging.DEBUG)
         s3conn = boto3.resource('s3', config=config, **s3_settings)
         try:
             head = s3conn.meta.client.head_bucket(Bucket=bucket_name)
